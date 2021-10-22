@@ -28,11 +28,11 @@ class Dios{
             fieles = pFieles;
         }
 
-        string getName(){
+        string  getName() const{
             return name;
         }
 
-        int getFieles(){
+        int  getFieles() const{
             return fieles;
         }
 };

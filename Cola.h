@@ -1,47 +1,20 @@
-#ifndef _COLA_
-#define _COLA_ 0
 
-#include "Dioses.h"
-#include <functional>
-#include <queue>
-#include <vector>
-#include <iostream>
+struct CompareAge {
+    bool operator()(Dios & p1, Dios & p2) {
+        return p1.getFieles() < p2.getFieles();
+    }
+};
 
 class Cola{
 
     public:
 
-    void crearPrioridad(Dios pDioses[], priority_queue<int> *pColaFieles)
+    void imprimirCola(priority_queue<Dios, vector<Dios>, CompareAge> pColaPrueba)
     {
-        for (int i = 0; i < 5; i++)
+        while (!pColaPrueba.empty())
         {
-            pColaFieles->push(pDioses[i].getFieles());
-        }
-    }
-
-    void pushDioses(Dios pDioses[], priority_queue<int> *pColaFieles, queue<Dios> *pColaDioses)
-    {
-        while(!pColaFieles->empty())
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                if(pDioses[i].getFieles() == pColaFieles->top())
-                {
-                    pColaDioses->push(pDioses[i]);
-                }
+            cout << pColaPrueba.top().getName() << endl;
+            pColaPrueba.pop();
             }
-            pColaFieles->pop();
         }
-    }
-
-    void imprimirCola(queue<Dios> *pColaDioses)
-    {
-        while(!pColaDioses->empty())
-        {
-            cout<< pColaDioses->front().getName() << endl;
-            pColaDioses->pop();
-        }
-    }
 };
-
-#endif

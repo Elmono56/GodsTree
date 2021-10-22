@@ -5,10 +5,9 @@
 #include "Dioses.h"
 #include "Cola.h"
 
-
 int main(){
 
-    Cola colaDeDioses;
+    Cola colaDioses;
 
     Dios Maluma("Maluma",10);
     Dios Anuel("Anuel",50);
@@ -16,16 +15,13 @@ int main(){
     Dios Enrique("Enrique",40);
     Dios Jeremy("Jeremy",5);
 
+    priority_queue<Dios, vector<Dios>, CompareAge> colaPrioridadDioses;
 
-    priority_queue<int> colaFieles;
-    queue<Dios> colaDioses;
-    Dios dioses[] = {Maluma, Anuel, Javier, Enrique, Jeremy};
+    colaPrioridadDioses.push(Maluma);
+    colaPrioridadDioses.push(Anuel);
+    colaPrioridadDioses.push(Javier);
+    colaPrioridadDioses.push(Enrique);
+    colaPrioridadDioses.push(Jeremy);
 
-
-    colaDeDioses.crearPrioridad(dioses, &colaFieles);
-    colaDeDioses.pushDioses(dioses, &colaFieles, &colaDioses);
-    colaDeDioses.imprimirCola(&colaDioses);
-
-
-
+    colaDioses.imprimirCola(colaPrioridadDioses);
 }

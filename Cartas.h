@@ -28,11 +28,11 @@ class Carta{
             cantidad = pCantidad;
         }
 
-        string getName(){
+        string getName() const{
             return tipo;
         }
 
-        int getFieles(){
+        int getFieles() const{
             return cantidad;
         }
 };
