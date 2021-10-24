@@ -12,7 +12,6 @@ class Dios{
         string name;
         int fieles;
 
-
     public:
 
         Dios(string pName, int pFieles){
@@ -28,16 +27,13 @@ class Dios{
             fieles = pFieles;
         }
 
-        string getName(){
+        string getName() const{
             return name;
         }
 
-        int getFieles(){
+        int getFieles() const{
             return fieles;
         }
-
 };
-
-
 
 #endif
