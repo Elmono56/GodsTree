@@ -71,6 +71,7 @@ class Carta{
 
         void retorno(){
             //El mazo del destino recupera las últimas 3 cartas de las que ya fueron sacadas, pero en orden inverso
+            
         }
 
         void muerte(Dios *diosA){

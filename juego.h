@@ -52,7 +52,6 @@ void ejecutar(Pila pMazoCartas, priority_queue<Dios, vector<Dios>, CompareAge> *
         Sleep(3000);    
     }
 }
-
 void finalizar(){
 
     char key = getch();
@@ -60,12 +59,10 @@ void finalizar(){
 
     if(value == KEY_X){
 
+        cout << "Juego finalizado" << endl;
+
         juego = false;
     }
 }
-
-
-
-
 
 #endif
