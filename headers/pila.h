@@ -8,7 +8,7 @@
 #include <random>
 #include <algorithm>
 
-template <class T> 
+template <class T>
 
 class Pila {
 

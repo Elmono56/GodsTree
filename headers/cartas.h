@@ -29,7 +29,7 @@ class Carta{
             return tipo;
         }
 
-        virtual void realizaraccion();
+        void realizaraccion();
 
 };
 

@@ -47,7 +47,7 @@ int main(){
         vectorM.push_back(CartaMuerte()); //5 cartas de MUERTE
     }
 
-    Pila pilaCartas = Pila(vectorM);
+    Pila<Carta> pilaCartas = Pila<Carta>(vectorM);
 
     
 

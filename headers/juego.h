@@ -12,7 +12,7 @@
 #include <iostream>
 
 
-void ejecutar(Pila pMazoCartas, Cola pColaDioses){ //priority_queue<Dios, vector<Dios>, CompareAge> *pMazoDioses){
+void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses){ //priority_queue<Dios, vector<Dios>, CompareAge> *pMazoDioses){
 
     
     while(pColaDioses.getPQSize()!=0){
@@ -21,13 +21,15 @@ void ejecutar(Pila pMazoCartas, Cola pColaDioses){ //priority_queue<Dios, vector
         
         if(pSiguiente.getTipo() == "Milagro"){
 
+            CartaMilagro jugada = CartaMilagro();
+
             Dios diosA = pColaDioses.getDios();
             Dios diosB = pColaDioses.getDios();
 
             cout << "----------------------------" << endl;
             cout << diosA.getFieles() << " / " << diosA.getName() << "---------" << diosB.getFieles() << " / " << diosB.getName() << endl;
 
-            salvar.realizaraccion(&diosA,&diosB);
+            jugada.realizaraccion(&diosA,&diosB);
 
             cout << diosA.getFieles() << " / " << diosA.getName() << "---------" << diosB.getFieles() << " / " << diosB.getName() << endl;
             cout << "----------------------------" << endl;
@@ -35,12 +37,14 @@ void ejecutar(Pila pMazoCartas, Cola pColaDioses){ //priority_queue<Dios, vector
         }
         else if (pSiguiente.getTipo()=="Traicion"){
 
+            CartaTraicion jugada = CartaTraicion();
+
             Dios diosA = pColaDioses.getDios();
             Dios diosB = pColaDioses.getDios();
 
             cout << "----------------------------" << endl;
             cout << diosA.getFieles() << " / " << diosA.getName() << "---------" << diosB.getFieles() << " / " << diosB.getName() << endl;
-            salvar.realizaraccion(&diosA,&diosB);
+            jugada.realizaraccion(&diosA,&diosB);
             cout << diosA.getFieles() << " / " << diosA.getName() << "---------" << diosB.getFieles() << " / " << diosB.getName() << endl;
             cout << "----------------------------" << endl;
         }
@@ -55,30 +59,36 @@ void ejecutar(Pila pMazoCartas, Cola pColaDioses){ //priority_queue<Dios, vector
 
         else if (pSiguiente.getTipo()=="NuevoDios"){
 
+            CartaNuevoDios jugada = CartaNuevoDios();
+
             Dios diosA = pColaDioses.getDios();
             Dios diosB = pColaDioses.getDios();
 
             cout << "----------------------------" << endl;
-            salvar.realizaraccion(&diosA,&diosB);
+            jugada.realizaraccion(&diosA,&diosB);
             cout << "----------------------------" << endl;
 
         }
 
         else if (pSiguiente.getTipo()=="Retorno"){
+
+            CartaRetorno jugada = CartaRetorno();
             
             cout << "----------------------------" << endl;
-            salvar.realizaraccion(&pMazoCartas);
+            jugada.realizaraccion();
             cout << "----------------------------" << endl;
 
         }
 
         else if (pSiguiente.getTipo()=="Muerte"){
 
+            CartaMuerte jugada = CartaMuerte();
+
             Dios diosA = pColaDioses.getDios();
 
             cout << "----------------------------" << endl;
             cout << diosA.getFieles() << " / " << diosA.getName() << endl;
-            salvar.realizaraccion(&diosA);
+            jugada.realizaraccion(&diosA);
             cout << diosA.getFieles() << " / " << diosA.getName() << endl;
             cout << "----------------------------" << endl;
 
@@ -87,7 +97,7 @@ void ejecutar(Pila pMazoCartas, Cola pColaDioses){ //priority_queue<Dios, vector
 
         }
 
-        Sleep(3000);    
+        Sleep(3000);
     }
 
 };
