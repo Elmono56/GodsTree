@@ -165,10 +165,9 @@ class CartaRetorno : public Carta{
 
         }
 
-        void realizaraccion(){//Pila* pMazoCartas){
+        void realizaraccion(Pila<Carta>* pMazoCartas){//Pila* pMazoCartas){
             //El mazo del destino recupera las últimas 3 cartas de las que ya fueron sacadas, pero en orden inverso
-
-            //pMazoCartas->accionRetornar();
+            pMazoCartas->accionRetornar();
         }
 
 };

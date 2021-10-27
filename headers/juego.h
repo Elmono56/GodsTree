@@ -51,9 +51,17 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses){ //priority_queue<Dios,
 
         else if (pSiguiente.getTipo()=="Anarquia"){
 
+            cout << "----------------------------" << endl;
+            cout << "            ANARQUIA        " << endl;
+            cout << "----------------------------" << endl;
+
         }
 
         else if (pSiguiente.getTipo()=="Union"){
+
+            cout << "----------------------------" << endl;
+            cout << "              UNION         " << endl;
+            cout << "----------------------------" << endl;
 
         }
 
@@ -75,7 +83,8 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses){ //priority_queue<Dios,
             CartaRetorno jugada = CartaRetorno();
             
             cout << "----------------------------" << endl;
-            jugada.realizaraccion();
+            cout << "             RETORNO        " << endl;
+            jugada.realizaraccion(&pMazoCartas);
             cout << "----------------------------" << endl;
 
         }

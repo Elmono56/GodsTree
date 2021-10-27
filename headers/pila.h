@@ -16,20 +16,13 @@ class Pila {
 
         stack<T> pilacartas;
         stack<T> mazoauxiliar;
-
-        /*
-        void swapCartas(Carta* pCarta1, Carta* pCarta2){
-            Carta* temp = pCarta1;
-            pCarta1 = pCarta2;
-            pCarta1 = temp;
-        }
-        */
+        stack<T> segundomazo;
 
     public:
         Pila(vector<T> vectorM){
             //---------------------------------CREACION PILA MAZO-------------------------------------
             
-            random_shuffle(vectorM.begin(), vectorM.end());
+            random_shuffle(vectorM.begin(), vectorM.end()); //randomizar el mazo
 
             for (int cont = 0; cont<40;cont++){
                 T elemento = vectorM.at(cont);
@@ -50,8 +43,28 @@ class Pila {
             mazoauxiliar.push(siguienteC); //poner carta en las últimas 3 utilizadas
 
             if (mazoauxiliar.size()>3){
-                //mazoauxiliar.pop_back();
+
+                for (int i = 0;i<5;i++){
+
+                    if (i<2){
+                        T cartaN = mazoauxiliar.top();
+                        mazoauxiliar.pop();
+                        segundomazo.push(cartaN);
+                    }
+                    else if (i==2){
+                        mazoauxiliar.pop();
+                    }
+                    else{
+                        T cartaN = segundomazo.top();
+                        segundomazo.pop();
+                        mazoauxiliar.push(cartaN);
+                    }   
+                }
             }
+
+            segundomazo.push(siguienteC);
+
+            //cout<<"PilaCartas: "<<pilacartas.size()<<"   MazoAuxiliar: "<<mazoauxiliar.size()<<"   SegundoMazo: "<<segundomazo.size()<<endl;
 
             return siguienteC;
             
@@ -60,20 +73,26 @@ class Pila {
         void accionRetornar(){
             
             int cont = 0;
-            /*
-            while(!mazoauxiliar.empty()){
-                Carta c = mazoauxiliar.back();  //recupera antepenultima, luego penultima y luego ultima carta utilizada
-                pilacartas.push(c);             //las pushea al mazo
-                //mazoauxiliar.pop_back();        //las elimina de la pila auxiliar
-                cont++;
-            }*/
+            int length = mazoauxiliar.size();
+            cout<<"PilaCartas: "<<pilacartas.size()<<"   MazoAuxiliar: "<<mazoauxiliar.size()<<"   SegundoMazo: "<<segundomazo.size()<<endl;
+            for (int i = 0; i<length*2;i++){
 
+                if (i<length){
+                    T cartaN = mazoauxiliar.top();
+                    mazoauxiliar.pop();
+                    segundomazo.pop(); //eliminar la duplicacion de cartas
+                    segundomazo.push(cartaN);
+                }
+                else{
+                    T cartaN = segundomazo.top();
+                    segundomazo.pop();
+                    pilacartas.push(cartaN);
+                    cont++;
+                }
+            }
             cout<<"Se han retornado "<<cont<< " cartas al mazo"<<endl;
-            
-
+            cout<<"PilaCartas: "<<pilacartas.size()<<"   MazoAuxiliar: "<<mazoauxiliar.size()<<"   SegundoMazo: "<<segundomazo.size()<<endl;
         }
-
-    
 
 };
 
