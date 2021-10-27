@@ -34,6 +34,7 @@ class Dios{
         int getFieles() const{
             return fieles;
         }
+        
 };
 
 #endif

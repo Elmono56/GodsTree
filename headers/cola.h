@@ -77,18 +77,20 @@ class Cola{
     {
         while (!pColaPrueba.empty())
         {
-            cout << pColaPrueba.top().getName() << " / " << pColaPrueba.top().getFieles() << endl; //está dando errores
+            cout << pColaPrueba.top().getName() << " / " << pColaPrueba.top().getFieles() << endl;
             pColaPrueba.pop();
         }
     }
 
-    //Dios getTwoDioses(){
-        //debe devolver dos dioses
-    //}
+    int getPQSize(){
+        return colaPrioridadDioses.size();
+    }
 
-    //Dios getOneDios(){
-        //debe retornar un dios
-    //}
+    Dios getDios(){
+        Dios deus = colaPrioridadDioses.top();
+        colaPrioridadDioses.pop();
+        return deus;
+    }
 
 
 

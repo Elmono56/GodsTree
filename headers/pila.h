@@ -1,17 +1,21 @@
 #ifndef _PILA_
 #define _PILA_ 0
 
-
 #include <stack>
 #include<iostream>
-#include "cartas.h"
 #include <string>
+#include <vector>
+#include <random>
+#include <algorithm>
 
-class Pila{
+template <class T> 
+
+class Pila {
 
     private:
-        stack<Carta> pilacartas;
-        stack<Carta> mazoauxiliar;
+
+        stack<T> pilacartas;
+        stack<T> mazoauxiliar;
 
         /*
         void swapCartas(Carta* pCarta1, Carta* pCarta2){
@@ -21,59 +25,26 @@ class Pila{
         }
         */
 
-
     public:
-        Pila(){
+        Pila(vector<T> vectorM){
             //---------------------------------CREACION PILA MAZO-------------------------------------
+            
+            random_shuffle(vectorM.begin(), vectorM.end());
 
-            for (int i = 0; i<4;i++){
-                pilacartas.push(Carta("Traicion")); //5 cartas de TRAICION
+            for (int cont = 0; cont<40;cont++){
+                T elemento = vectorM.at(cont);
+                pilacartas.push(elemento);
             }
-
-            for (int i = 0; i<7;i++){
-                pilacartas.push(Carta("Anarquia")); //5 cartas de ANARQUIA
-            }
-
-            for (int i = 0; i<4;i++){
-                pilacartas.push(Carta("Union")); //5 cartas de UNION
-            }
-
-            for (int i = 0; i<4;i++){
-                pilacartas.push(Carta("NuevoDios")); //5 cartas de NUEVO DIOS
-            }
-
-            for (int i = 0; i<6;i++){
-                pilacartas.push(Carta("Retorno")); //5 cartas de RETORNO
-            }
-
-            for (int i = 0; i<5;i++){
-                pilacartas.push(Carta("Milagro")); //5 cartas de MILAGRO
-            }
-
-            for (int i = 0; i<10;i++){
-                    pilacartas.push(Carta("Muerte")); //5 cartas de MUERTE
-            }
-
-            //randomizar el mazo
-            /*
-            for(int i = 0; i<20;i++){
-                int valor1 = rand()%39;
-                int valor2 = rand()%39;
-
-                
-            }
-            */
-
-
+            
         }
 
         int getSize(){
             return pilacartas.size();
         }
-
-        Carta getCarta(){
-
-            Carta siguienteC = pilacartas.top();
+        
+        T getCarta(){ //Carta getCarta(){
+            
+            T siguienteC = pilacartas.top();
             pilacartas.pop();
 
             mazoauxiliar.push(siguienteC); //poner carta en las últimas 3 utilizadas
@@ -83,25 +54,26 @@ class Pila{
             }
 
             return siguienteC;
+            
         }
-
 
         void accionRetornar(){
             
-            /*
             int cont = 0;
-            
+            /*
             while(!mazoauxiliar.empty()){
                 Carta c = mazoauxiliar.back();  //recupera antepenultima, luego penultima y luego ultima carta utilizada
                 pilacartas.push(c);             //las pushea al mazo
-                mazoauxiliar.pop_back();        //las elimina de la pila auxiliar
+                //mazoauxiliar.pop_back();        //las elimina de la pila auxiliar
                 cont++;
-            }
+            }*/
 
             cout<<"Se han retornado "<<cont<< " cartas al mazo"<<endl;
-            */
+            
 
         }
+
+    
 
 };
 

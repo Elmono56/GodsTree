@@ -11,39 +11,86 @@
 #include <time.h>
 #include <iostream>
 
-void ejecutar(Pila pMazoCartas, priority_queue<Dios, vector<Dios>, CompareAge> *pMazoDioses){
 
-    while(!pMazoDioses->empty()){
+void ejecutar(Pila pMazoCartas, Cola pColaDioses){ //priority_queue<Dios, vector<Dios>, CompareAge> *pMazoDioses){
 
-        Carta pSiguiente = pMazoCartas.getCarta();
-        if(pSiguiente.getTipo() == "Muerte"){
-            Dios A = pMazoDioses->top();
-            pMazoDioses->pop();
+    
+    while(pColaDioses.getPQSize()!=0){
 
-            cout << "----------------------------" << endl;
-            cout << A.getFieles() << " / " << A.getName() << endl;
-            pSiguiente.realizaraccion(&A,&A);
-            cout << A.getFieles() << " / " << A.getName() << endl;
-            cout << "----------------------------" << endl;
+        Carta pSiguiente = pMazoCartas.getCarta(); 
+        
+        if(pSiguiente.getTipo() == "Milagro"){
 
-        }else{
-
-            Dios A = pMazoDioses->top();
-            pMazoDioses->pop();
-            Dios B = pMazoDioses->top();
-            pMazoDioses->pop();
+            Dios diosA = pColaDioses.getDios();
+            Dios diosB = pColaDioses.getDios();
 
             cout << "----------------------------" << endl;
-            cout << A.getFieles() << " / " << A.getName() << "---------" << B.getFieles() << " / " << B.getName() << endl;
-            pSiguiente.realizaraccion(&A,&B);
-            cout << A.getFieles() << " / " << A.getName() << "---------" << B.getFieles() << " / " << B.getName() << endl;
+            cout << diosA.getFieles() << " / " << diosA.getName() << "---------" << diosB.getFieles() << " / " << diosB.getName() << endl;
+
+            salvar.realizaraccion(&diosA,&diosB);
+
+            cout << diosA.getFieles() << " / " << diosA.getName() << "---------" << diosB.getFieles() << " / " << diosB.getName() << endl;
+            cout << "----------------------------" << endl;
+
+        }
+        else if (pSiguiente.getTipo()=="Traicion"){
+
+            Dios diosA = pColaDioses.getDios();
+            Dios diosB = pColaDioses.getDios();
+
+            cout << "----------------------------" << endl;
+            cout << diosA.getFieles() << " / " << diosA.getName() << "---------" << diosB.getFieles() << " / " << diosB.getName() << endl;
+            salvar.realizaraccion(&diosA,&diosB);
+            cout << diosA.getFieles() << " / " << diosA.getName() << "---------" << diosB.getFieles() << " / " << diosB.getName() << endl;
             cout << "----------------------------" << endl;
         }
 
+        else if (pSiguiente.getTipo()=="Anarquia"){
+
+        }
+
+        else if (pSiguiente.getTipo()=="Union"){
+
+        }
+
+        else if (pSiguiente.getTipo()=="NuevoDios"){
+
+            Dios diosA = pColaDioses.getDios();
+            Dios diosB = pColaDioses.getDios();
+
+            cout << "----------------------------" << endl;
+            salvar.realizaraccion(&diosA,&diosB);
+            cout << "----------------------------" << endl;
+
+        }
+
+        else if (pSiguiente.getTipo()=="Retorno"){
+            
+            cout << "----------------------------" << endl;
+            salvar.realizaraccion(&pMazoCartas);
+            cout << "----------------------------" << endl;
+
+        }
+
+        else if (pSiguiente.getTipo()=="Muerte"){
+
+            Dios diosA = pColaDioses.getDios();
+
+            cout << "----------------------------" << endl;
+            cout << diosA.getFieles() << " / " << diosA.getName() << endl;
+            salvar.realizaraccion(&diosA);
+            cout << diosA.getFieles() << " / " << diosA.getName() << endl;
+            cout << "----------------------------" << endl;
+
+        }
+        else{
+
+        }
+
         Sleep(3000);    
-        
     }
-}
+
+};
 
 
 #endif

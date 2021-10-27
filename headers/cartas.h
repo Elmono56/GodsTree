@@ -1,10 +1,11 @@
-#ifndef CARTAS
-#define CARTAS 0
+#ifndef _CARTAS_
+#define _CARTAS_ 0
 
 #include <iostream>
 #include <string>
 
 #include "dioses.h"
+#include "pila.h"
 
 using namespace std;
 
@@ -14,7 +15,36 @@ class Carta{
     
         string tipo;
 
-        void milagro(Dios *diosA, Dios *diosB){
+    public:
+
+        Carta(string pTipo){
+            tipo = pTipo;
+        }
+
+        void setTipo(string pTipo){
+            tipo = pTipo;
+        }
+
+        string getTipo(){
+            return tipo;
+        }
+
+        virtual void realizaraccion();
+
+};
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------
+
+class CartaMilagro : public Carta{
+
+    public:
+        
+        CartaMilagro():Carta("Milagro"){
+
+        }
+        
+        void realizaraccion(Dios *diosA, Dios *diosB){
             //El dios A le gana el 20% de los fieles al dios B
             
             int fielesA = diosA->getFieles();
@@ -33,9 +63,22 @@ class Carta{
             if (fielesB <= 0){
                 cout<<diosB->getName()<< " ha perdido todos sus seguidores"<<endl;
             }
+
         }
 
-        void traicion(Dios *diosA, Dios *diosB){
+};
+
+//-----------------------------------------------------------------------------------------------------------------------------------
+
+class CartaTraicion : public Carta{
+
+    public:
+
+        CartaTraicion():Carta("Traicion"){
+
+        }
+
+        void realizaraccion(Dios *diosA, Dios *diosB){
             //El dios A pierde el 30% de sus fieles y se los da a B 
             
             int fielesA = diosA->getFieles();
@@ -56,25 +99,91 @@ class Carta{
             }
         }
 
-        void anarquia(){
+};
+
+//-----------------------------------------------------------------------------------------------------------------------------------
+
+class CartaAnarquia : public Carta{
+
+    public:
+
+        CartaAnarquia():Carta("Anarquia"){
+
+        }
+
+        void realizaraccion(){
             //El dios A se separa del árbol de dioses y crea su propio árbol con los dioses con menos fieles que él
         }
 
-        void unionA(){
+};
+
+//-----------------------------------------------------------------------------------------------------------------------------------
+
+class CartaUnion : public Carta{
+
+    public:
+
+        CartaUnion():Carta("Union"){
+
+        }
+
+        void realizaraccion(){
             //Si el dios A y el dios B se encuentran en árboles diferentes se vuelven a unir en un solo árbol
         }
 
-        void nuevoDios(Dios *diosA, Dios *diosB){
+};
+
+//-----------------------------------------------------------------------------------------------------------------------------------
+
+class CartaNuevoDios : public Carta{
+
+    public:
+
+        CartaNuevoDios():Carta("NuevoDios"){
+
+        }
+
+        void realizaraccion(Dios* diosA, Dios* diosB){
             //Los dioses A y B tienen un hijo dios que inicia con cantidad de fieles igual a la suma de ambos dioses
-        }
-
-
-        void retorno(){
-            //El mazo del destino recupera las últimas 3 cartas de las que ya fueron sacadas, pero en orden inverso
             
+            int fielesN = diosA->getFieles() + diosB->getFieles();
+
+            Dios DiosG = Dios("Generico",fielesN);
+
+            cout<<DiosG.getName()<< " ha nacido de "<<diosA->getName() << " y de "<<diosB->getName()<<endl;
         }
 
-        void muerte(Dios *diosA){
+};
+
+//-----------------------------------------------------------------------------------------------------------------------------------
+
+class CartaRetorno : public Carta{
+
+    public:
+
+        CartaRetorno():Carta("Retorno"){
+
+        }
+
+        void realizaraccion(){//Pila* pMazoCartas){
+            //El mazo del destino recupera las últimas 3 cartas de las que ya fueron sacadas, pero en orden inverso
+
+            //pMazoCartas->accionRetornar();
+        }
+
+};
+
+//-----------------------------------------------------------------------------------------------------------------------------------
+
+class CartaMuerte : public Carta{
+
+    public:
+
+        CartaMuerte():Carta("Muerte"){
+
+        }
+
+        void realizaraccion(Dios *diosA){
             //El dios A pierde el 10% de sus fieles
 
             int fielesA = diosA->getFieles();
@@ -92,44 +201,6 @@ class Carta{
             }
         }
 
-    public:
-
-        Carta(string pTipo){
-            tipo = pTipo;
-        }
-
-        void setTipo(string pTipo){
-            tipo = pTipo;
-        }
-
-        string getTipo(){
-            return tipo;
-        }
-
-
-        void realizaraccion(Dios *diosA, Dios *diosB){
-            if (tipo == "Milagro"){
-                milagro(diosA, diosB);
-            }
-            else if (tipo == "Traicion"){
-                traicion(diosA, diosB);
-            }
-            else if (tipo == "Anarquia"){
-                anarquia();
-            }
-            else if (tipo =="Union"){
-                unionA();
-            }
-            else if (tipo =="NuevoDios"){
-                nuevoDios(diosA, diosB);
-            }
-            else if (tipo =="Retorno"){
-                retorno();
-            }
-            else{
-                muerte(diosA);
-            }
-        }
 };
 
 #endif
