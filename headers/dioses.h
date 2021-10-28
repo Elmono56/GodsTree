@@ -6,36 +6,39 @@
 
 using namespace std;
 
-class Dios:{
+class Dios{
     
     private:
-        String name;
+        string name;
         int fieles;
-
 
     public:
 
-        void setName(String pName){
-            this.name = pName;
+        Dios(string pName, int pFieles){
+            name = pName,
+            fieles = pFieles;
+        }
+
+        void setName(string pName){
+            name = pName;
         }
 
         void setFieles(int pFieles){
-            this.fieles = pFieles;
+            fieles = pFieles;
         }
 
-        String getName(){
-            return this.name;
+        string getName() const{
+            return name;
         }
 
-        int getFieles(){
-            return this.fieles;
+        int getFieles() const{
+            return fieles;
         }
 
-
-
-
-}
-
-
+        string setToString(){ //no está sirviendo (se imprimen mal)
+            return  fieles + " / " + name;
+        }
+        
+};
 
 #endif
