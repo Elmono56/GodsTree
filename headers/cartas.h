@@ -6,6 +6,7 @@
 
 #include "dioses.h"
 #include "pila.h"
+#include "cola.h"
 
 using namespace std;
 
@@ -143,7 +144,7 @@ class CartaNuevoDios : public Carta{
 
         }
 
-        void realizaraccion(Dios* diosA, Dios* diosB){
+        void realizaraccion(Dios* diosA, Dios* diosB, Cola* pColaDioses){
             //Los dioses A y B tienen un hijo dios que inicia con cantidad de fieles igual a la suma de ambos dioses
             
             int fielesN = diosA->getFieles() + diosB->getFieles();
@@ -151,6 +152,8 @@ class CartaNuevoDios : public Carta{
             Dios DiosG = Dios("Generico",fielesN);
 
             cout<<DiosG.getName()<< " ha nacido de "<<diosA->getName() << " y de "<<diosB->getName()<<endl;
+
+            pColaDioses->pushDios(&DiosG);
         }
 
 };

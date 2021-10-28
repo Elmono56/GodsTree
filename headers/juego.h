@@ -34,6 +34,9 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses){ //priority_queue<Dios,
             cout << diosA.getFieles() << " / " << diosA.getName() << "---------" << diosB.getFieles() << " / " << diosB.getName() << endl;
             cout << "----------------------------" << endl;
 
+            pColaDioses.pushDios(&diosA);
+            pColaDioses.pushDios(&diosB);
+
         }
         else if (pSiguiente.getTipo()=="Traicion"){
 
@@ -47,6 +50,9 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses){ //priority_queue<Dios,
             jugada.realizaraccion(&diosA,&diosB);
             cout << diosA.getFieles() << " / " << diosA.getName() << "---------" << diosB.getFieles() << " / " << diosB.getName() << endl;
             cout << "----------------------------" << endl;
+
+            pColaDioses.pushDios(&diosA);
+            pColaDioses.pushDios(&diosB);
         }
 
         else if (pSiguiente.getTipo()=="Anarquia"){
@@ -73,8 +79,11 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses){ //priority_queue<Dios,
             Dios diosB = pColaDioses.getDios();
 
             cout << "----------------------------" << endl;
-            jugada.realizaraccion(&diosA,&diosB);
+            jugada.realizaraccion(&diosA,&diosB,&pColaDioses);
             cout << "----------------------------" << endl;
+
+            pColaDioses.pushDios(&diosA);
+            pColaDioses.pushDios(&diosB);
 
         }
 
@@ -101,12 +110,15 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses){ //priority_queue<Dios,
             cout << diosA.getFieles() << " / " << diosA.getName() << endl;
             cout << "----------------------------" << endl;
 
+            pColaDioses.pushDios(&diosA);
+
         }
         else{
 
         }
-
+        //cout<<"SIZE COLA DIOSES"<<pColaDioses.getPQSize()<<endl;
         Sleep(3000);
+        
     }
 
 };

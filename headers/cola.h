@@ -92,7 +92,11 @@ class Cola{
         return deus;
     }
 
+    void pushDios(Dios* pDiosA){
 
+        colaPrioridadDioses.push(*pDiosA);
+
+    }
 
 };
 

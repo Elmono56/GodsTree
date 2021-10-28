@@ -34,6 +34,10 @@ class Dios{
         int getFieles() const{
             return fieles;
         }
+
+        string setToString(){ //no está sirviendo (se imprimen mal)
+            return  fieles + " / " + name;
+        }
         
 };
 
