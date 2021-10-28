@@ -64,6 +64,16 @@ class Pila {
 
             segundomazo.push(siguienteC);
 
+            if (pilacartas.size()==0){
+                int length = segundomazo.size();
+                for (int i = 0; i<length; i++){
+                    T carta = segundomazo.top();
+                    segundomazo.pop();
+                    pilacartas.push(carta);
+                }
+                cout<<"El mazo principal se ha vaciado, se ha intercambiado por el segundo mazo"<<endl;
+            }
+
             //cout<<"PilaCartas: "<<pilacartas.size()<<"   MazoAuxiliar: "<<mazoauxiliar.size()<<"   SegundoMazo: "<<segundomazo.size()<<endl;
 
             return siguienteC;
@@ -91,7 +101,7 @@ class Pila {
                 }
             }
             cout<<"Se han retornado "<<cont<< " cartas al mazo"<<endl;
-            cout<<"PilaCartas: "<<pilacartas.size()<<"   MazoAuxiliar: "<<mazoauxiliar.size()<<"   SegundoMazo: "<<segundomazo.size()<<endl;
+            //cout<<"PilaCartas: "<<pilacartas.size()<<"   MazoAuxiliar: "<<mazoauxiliar.size()<<"   SegundoMazo: "<<segundomazo.size()<<endl;
         }
 
 };

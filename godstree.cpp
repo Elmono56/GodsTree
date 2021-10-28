@@ -4,6 +4,7 @@
 #include <functional>
 #include <queue>
 #include <vector>
+#include <thread>
 
 #include "headers/cartas.h"
 #include "headers/dioses.h"
@@ -54,12 +55,17 @@ int main(){
 //---------------------------------CREACION COLA DIOSES-----------------------------------
 
     Cola colaDioses = Cola();
-    priority_queue<Dios, vector<Dios>, CompareAge> colaPrioridadDioses = colaDioses.getColaDioses();
+    priority_queue<Dios, vector<Dios>, CompareAge> colaPrioridadDioses = colaDioses.getColaDioses(); //por alguna razon si quitamos esto el parar el thread no sirve
 
 //---------------------------------JUEGO--------------------------------------------------
 
-    ejecutar(pilaCartas,colaDioses);
+    //ejecutar(pilaCartas,colaDioses);
+    //std::thread displaytd(displayAction, std::ref(td));
 
-
+    
+    std::thread first(ejecutar,pilaCartas,colaDioses);
+    std::thread second(finalizar);
+    first.join();                
+    second.join();
 
 }

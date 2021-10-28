@@ -10,12 +10,16 @@
 #include <windows.h>
 #include <time.h>
 #include <iostream>
+#include<conio.h>
 
+#define KEY_X 120
+
+bool juego = true;
 
 void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses){ //priority_queue<Dios, vector<Dios>, CompareAge> *pMazoDioses){
 
     
-    while(pColaDioses.getPQSize()!=0){
+    while(juego & pColaDioses.getPQSize()!=0){
 
         Carta pSiguiente = pMazoCartas.getCarta(); 
         
@@ -120,8 +124,20 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses){ //priority_queue<Dios,
         Sleep(3000);
         
     }
+}
 
+void finalizar(){
+    
+    char key = getch();
+    int value = key;
+
+    if(value == KEY_X){
+
+        juego = false;
+
+        cout << "Juego finalizado" << endl;
+        
+    }
 };
-
 
 #endif
