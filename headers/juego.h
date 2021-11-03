@@ -6,6 +6,7 @@
 #include "dioses.h"
 #include "pila.h"
 #include "cola.h"
+#include "avl.h"
 
 #include <windows.h>
 #include <time.h>
@@ -16,7 +17,7 @@
 
 bool juego = true;
 
-void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses){ //priority_queue<Dios, vector<Dios>, CompareAge> *pMazoDioses){
+void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,vector<avl*> arboles){ //priority_queue<Dios, vector<Dios>, CompareAge> *pMazoDioses){
 
     
     while(juego & pColaDioses.getPQSize()!=0){
@@ -61,17 +62,35 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses){ //priority_queue<Dios,
 
         else if (pSiguiente.getTipo()=="Anarquia"){
 
+            CartaAnarquia jugada = CartaAnarquia();
+
+            Dios diosA = pColaDioses.getDios();
+
             cout << "----------------------------" << endl;
-            cout << "            ANARQUIA        " << endl;
+
+            jugada.realizaraccion(&diosA,arboles);
+            
             cout << "----------------------------" << endl;
+
+            pColaDioses.pushDios(&diosA);
 
         }
 
         else if (pSiguiente.getTipo()=="Union"){
 
+            CartaUnion jugada = CartaUnion();
+
+            Dios diosA = pColaDioses.getDios();
+            Dios diosB = pColaDioses.getDios();
+
             cout << "----------------------------" << endl;
-            cout << "              UNION         " << endl;
+            
+            jugada.realizaraccion(&diosA, &diosB, arboles);
+
             cout << "----------------------------" << endl;
+
+            pColaDioses.pushDios(&diosA);
+            pColaDioses.pushDios(&diosB);
 
         }
 
