@@ -3,10 +3,12 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 
 #include "dioses.h"
 #include "pila.h"
 #include "cola.h"
+#include "avl.h"
 
 using namespace std;
 
@@ -112,8 +114,42 @@ class CartaAnarquia : public Carta{
 
         }
 
-        void realizaraccion(){
+        void realizaraccion(Dios* diosA, avl *bosque[]){
             //El dios A se separa del árbol de dioses y crea su propio árbol con los dioses con menos fieles que él
+
+            int posiDiosA=0;
+            avl_tree arbol = avl_tree();
+
+            int cont = 0;
+
+            while (bosque[cont]!=nullptr){
+                cont++;
+            }
+
+            for (int posicion = 0; posicion<cont;posicion++){
+                
+                if (arbol.buscarDios(bosque[posicion],*diosA) == 1){ //encontrar el arbol en el que está diosA
+                    posiDiosA = posicion;
+                    break;
+                }
+                else{
+                }
+            }
+
+            avl* arbolp = bosque[posiDiosA]; //arbol en el que se encuentra el diosA
+
+            avl* arbolanarquico = arbol.deleteNode(nullptr,arbolp,*diosA); //nuevo arbol
+
+            arbolp = arbol.balance(arbolp); //balanceo
+
+            int cant = arbol.cantNodos(arbolanarquico) - 1;
+            arbolanarquico = arbol.balance(arbolanarquico); //balanceo
+
+            //pArboles.insert(arbolanarquico); //insertar el nuevo arbol del dios A
+
+            bosque[cont]=arbolanarquico;
+
+            cout<<"El dios "<<diosA->getName()<<" se ha vuelto anarquico y se ha llevado consigo"<<cant <<" dios(es)"<<endl;
         }
 
 };
@@ -128,8 +164,67 @@ class CartaUnion : public Carta{
 
         }
 
-        void realizaraccion(){
+        void realizaraccion(Dios* diosA, Dios* diosB,avl *bosque[]){
             //Si el dios A y el dios B se encuentran en árboles diferentes se vuelven a unir en un solo árbol
+            int posiDiosA=0;
+            int posiDiosB=0;
+            avl_tree arbol = avl_tree();
+
+
+            int cont = 0;
+
+            while (bosque[cont]!=nullptr){
+                cont++;
+            }
+
+
+            for (int posicion = 0; posicion<cont;posicion++){
+                
+                if (arbol.buscarDios(bosque[posicion],*diosA) == 1){ //encontrar el arbol en el que está diosA
+                    posiDiosA = posicion;
+                    break;
+                }
+                else{
+                }
+            }
+            
+            for (int posicion = 0; posicion<cont;posicion++){
+                
+                if (arbol.buscarDios(bosque[posicion],*diosB) == 1){//encontrar el arbol en el que está diosB
+                    posiDiosB = posicion;
+                    break;
+                }
+                else{
+                }
+            }
+
+            if (posiDiosA == posiDiosB){
+                cout<<diosA->getName()<<" y "<<diosB->getName()<<" se encuentran en el mismo arbol"<<endl; //arboles son iguales
+            }
+
+            else{
+
+                avl* arboldiosA = bosque[posiDiosA]; //determinar la cantidad de nodos de cada arbol para ver cual es mayor
+                avl* arboldiosB = bosque[posiDiosB];
+
+                bosque[posiDiosA] = NULL; //eliminar los arboles del vector 
+                bosque[posiDiosB] = NULL;
+
+                int cantnodos1 = arbol.cantNodos(arboldiosA); 
+                int cantnodos2 = arbol.cantNodos(arboldiosB);
+
+                if (cantnodos1>cantnodos2){ 
+                    arbol.insertAVL(arboldiosA,arboldiosB);
+                    bosque[posiDiosA] = arboldiosA;
+                }
+                else{
+                    arbol.insertAVL(arboldiosB,arboldiosA);
+                    bosque[posiDiosB] = arboldiosB;
+                }
+
+                cout<<"El arbol del dios "<<diosA->getName()<<" se ha unido al arbol del dios "<<diosB->getName()<<endl;
+                
+            }
         }
 
 };

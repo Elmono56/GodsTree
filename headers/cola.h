@@ -5,7 +5,14 @@
 #include <queue>
 #include <vector>
 #include "dioses.h"
-#include "gfJSON.h"
+#include "json.hpp"
+#include "fstream"
+
+
+using json = nlohmann::json;
+using namespace std;
+
+
 
 struct CompareAge {
     bool operator()(Dios & p1, Dios & p2) {
@@ -21,12 +28,22 @@ class Cola{
     public:
 
     Cola(){
-        vector<Dios> diosesJSON = getFromJSON();
 
-        while (!diosesJSON.empty()){
-            colaPrioridadDioses.push(diosesJSON.back());
+        fstream archivo("diosesJson.json");
+
+        json infoDioses;
+
+        archivo>>infoDioses;
+
+        for (int i = 0; i < 20; i++)
+        {
+
+            colaPrioridadDioses.push(Dios(infoDioses["Dioses"][i],infoDioses["Fieles"][i]));
+            
         }
+        archivo.close();
     }
+
 
     priority_queue<Dios, vector<Dios>, CompareAge> getColaDioses(){
         return colaPrioridadDioses;

@@ -1,3 +1,6 @@
+#ifndef _AVL_
+#define _AVL_ 0
+
 #include<iostream>
 #include<cstdio>
 #include<sstream>
@@ -14,7 +17,7 @@ class avl{
       avl* rightSon;
 
    public:
-      alv(){
+      alv(){ // CAMBIAR CONSTRUCTOR
          leftSon=nullptr;
          rightSon=nullptr;
       }
@@ -185,7 +188,6 @@ class avl_tree {
             if (pDeus.getName()!=pRoot->getValue().getName()){
                return deleteNode(pRoot, pRoot->getLS(), pDeus); //validacion del nombre (pueden tener mismos fieles pero diferente nombre)
             }
-
             else if (pRoot->getRS()==nullptr){ //no hay nada al lado derecho
                //cout<<"NADA DERECHO"<<endl;
 
@@ -202,6 +204,7 @@ class avl_tree {
                pRoot->setRS(nullptr);
                
             }
+            
             return pRoot;
 
          }
@@ -282,56 +285,4 @@ class avl_tree {
       }
 };
 
-int main() {
-   
-   avl_tree arbolAVL;
-
-   Cola colaDioses;
-
-   priority_queue<Dios, vector<Dios>, CompareAge> colaPrioridad= colaDioses.getColaDioses();
-   priority_queue<Dios, vector<Dios>, CompareAge> *ptrCola;
-
-   ptrCola = &colaPrioridad;
-
-   avl* root = nullptr;
-
-   while(!ptrCola->empty()){
-      root = arbolAVL.insert(root, ptrCola->top());
-      ptrCola->pop();
-   }
-   
-   //Dios Asclepio = Dios("Asclepio", 120);
-   Dios Thor = Dios("Thor",100);
-
-   arbolAVL.postorder(root);
-
-   cout<<endl;
-
-   avl* hola = arbolAVL.deleteNode(nullptr,root,Thor);
-
-   arbolAVL.postorder(root);
-   cout<<endl;
-   cout<<hola->getValue().getFieles()<<endl;
-   cout<<hola->getLS()->getValue().getFieles()<<endl;
-
-   cout<<"A"<<endl;
-
-   hola = arbolAVL.balance(hola);
-   arbolAVL.postorder(hola);
-
-  cout<<arbolAVL.cantNodos(root)<<endl;
-   cout<<arbolAVL.cantNodos(hola)<<endl;
-
-   arbolAVL.balance(root);
-   
-   cout<<arbolAVL.buscarDios(root,Thor)<<endl;
-   cout<<arbolAVL.buscarDios(hola,Thor)<<endl;
-
-   arbolAVL.postorder(root);
-   cout<<endl;
-   arbolAVL.insertAVL(root,hola);
-   cout<<arbolAVL.buscarDios(root,Thor)<<endl;
-
-   arbolAVL.postorder(root);
-   return 0;
-}
+#endif

@@ -27,28 +27,28 @@ int main(){
 
     
 //---------------------------------CREACION COLA DIOSES-----------------------------------
-
+    cout<<"A"<<endl;
     Cola colaDioses = Cola();
+    cout<<"B"<<endl;
     priority_queue<Dios, vector<Dios>, CompareAge> colaPrioridadDioses = colaDioses.getColaDioses(); //por alguna razon si quitamos esto el parar el thread no sirve
+    cout<<"C"<<endl;
 
 //---------------------------------CREACION ARBOL INCIAL-------------------------------------------------
 
     avl *arbol = crearArbol();
-    vector<avl*> arboles = vector<avl*>();
+    //vector<avl*> arboles = vector<avl*>();
+
+    avl *bosque[100];
+
+    bosque[0]=arbol;
 
     //arboles.insert(arbol);
-
-    vector<avl> bosque;
-
-    avl hola = *arbol;
-
-    bosque.insert(hola);
 
 //---------------------------------JUEGO--------------------------------------------------
     
 
 
-    //std::thread first(ejecutar,pilaCartas,colaDioses,arboles);
+    std::thread first(ejecutar,pilaCartas,colaDioses,bosque);
     std::thread second(finalizar);
     first.join();                
     second.join();

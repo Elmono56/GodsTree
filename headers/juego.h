@@ -17,7 +17,7 @@
 
 bool juego = true;
 
-void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,vector<avl*> arboles){ //priority_queue<Dios, vector<Dios>, CompareAge> *pMazoDioses){
+void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,avl *bosque[]){ //priority_queue<Dios, vector<Dios>, CompareAge> *pMazoDioses){ / vector<avl*> arboles
 
     
     while(juego & pColaDioses.getPQSize()!=0){
@@ -68,7 +68,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,vector<avl*> arboles){ /
 
             cout << "----------------------------" << endl;
 
-            jugada.realizaraccion(&diosA,arboles);
+            jugada.realizaraccion(&diosA,bosque);
             
             cout << "----------------------------" << endl;
 
@@ -85,7 +85,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,vector<avl*> arboles){ /
 
             cout << "----------------------------" << endl;
             
-            jugada.realizaraccion(&diosA, &diosB, arboles);
+            jugada.realizaraccion(&diosA, &diosB, bosque);
 
             cout << "----------------------------" << endl;
 
