@@ -182,7 +182,11 @@ class avl_tree {
          else{ //fieles igual a la cantidad buscada
          //cout<<"IGUALES"<<endl;
          //cout<<fieles<<" "<<pRoot->value.getFieles()<<endl;
-            if (pRoot->getRS()==nullptr){ //no hay nada al lado derecho
+            if (pDeus.getName()!=pRoot->getValue().getName()){
+               return deleteNode(pRoot, pRoot->getLS(), pDeus); //validacion del nombre (pueden tener mismos fieles pero diferente nombre)
+            }
+
+            else if (pRoot->getRS()==nullptr){ //no hay nada al lado derecho
                //cout<<"NADA DERECHO"<<endl;
 
                pFather->setLS(nullptr);
@@ -296,9 +300,7 @@ int main() {
 
    hola = arbolAVL.balance(hola);
    arbolAVL.postorder(hola);
-   cout<<endl;
-
-
+   
   cout<<arbolAVL.cantNodos(root)<<endl;
 
    cout<<arbolAVL.cantNodos(hola)<<endl;
