@@ -54,8 +54,10 @@ struct avl {
 */
 
 class avl_tree {
-   public:
+
+   private:
       avl* root;
+   public:
 
       int height(avl *Nodo) {
          int h = 0;
@@ -185,16 +187,18 @@ class avl_tree {
 
                pFather->setLS(nullptr);
 
-               return pRoot;
+               pRoot->setRS(nullptr);
+
             }
             else{ //hay algo mayor que este
                //cout<<"HAY ALGO AL LADO DERECHO"<<endl;
 
                pFather->setLS(pRoot->getRS());
 
-               return pRoot;
+               pRoot->setRS(nullptr);
                
             }
+            return pRoot;
 
          }
 
@@ -224,6 +228,35 @@ class avl_tree {
 
       avl_tree() {
          root = NULL;
+      }
+
+      int cantNodos(avl* root){
+         if (root==NULL){
+            return 0;
+         }
+         else{
+            return 1+cantNodos(root->getLS())+cantNodos(root->getRS());
+         }
+      }
+
+      avl* insertAVL(avl* pRoot, avl* arbolsec){
+         if (pRoot==NULL){
+            pRoot = arbolsec;
+            return pRoot;
+         }
+         else if (pRoot->getValue().getFieles()<arbolsec->getValue().getFieles()){
+
+            pRoot->setRS(insertAVL(pRoot->getRS(), arbolsec));
+            pRoot = balance(pRoot);
+
+         }
+         else if (pRoot->getValue().getFieles()>arbolsec->getValue().getFieles()){
+
+            pRoot->setLS(insertAVL(pRoot->getLS(), arbolsec));
+            pRoot = balance(pRoot);
+
+         }
+         return pRoot;
       }
 };
 
@@ -259,10 +292,22 @@ int main() {
    cout<<hola->getValue().getFieles()<<endl;
    cout<<hola->getLS()->getValue().getFieles()<<endl;
 
+   cout<<"A"<<endl;
 
+   hola = arbolAVL.balance(hola);
+   arbolAVL.postorder(hola);
+   cout<<endl;
+
+
+  cout<<arbolAVL.cantNodos(root)<<endl;
+
+   cout<<arbolAVL.cantNodos(hola)<<endl;
    arbolAVL.balance(root);
+   cout<<endl;
    arbolAVL.postorder(root);
-   //arbolAVL.postorder();
+   cout<<endl;
+   arbolAVL.insertAVL(root,hola);
 
+   arbolAVL.postorder(root);
    return 0;
 }
