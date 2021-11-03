@@ -14,6 +14,8 @@
 #include "headers/juego.h"
 #include "headers/mazo.h"
 #include "headers/arbolinicial.h"
+#include "headers/json.hpp"
+#include "headers/avl.h"
 
 using namespace std;
 
@@ -27,11 +29,9 @@ int main(){
 
     
 //---------------------------------CREACION COLA DIOSES-----------------------------------
-    cout<<"A"<<endl;
+
     Cola colaDioses = Cola();
-    cout<<"B"<<endl;
     priority_queue<Dios, vector<Dios>, CompareAge> colaPrioridadDioses = colaDioses.getColaDioses(); //por alguna razon si quitamos esto el parar el thread no sirve
-    cout<<"C"<<endl;
 
 //---------------------------------CREACION ARBOL INCIAL-------------------------------------------------
 
@@ -46,8 +46,6 @@ int main(){
 
 //---------------------------------JUEGO--------------------------------------------------
     
-
-
     std::thread first(ejecutar,pilaCartas,colaDioses,bosque);
     std::thread second(finalizar);
     first.join();                

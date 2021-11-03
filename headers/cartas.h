@@ -148,8 +148,10 @@ class CartaAnarquia : public Carta{
             //pArboles.insert(arbolanarquico); //insertar el nuevo arbol del dios A
 
             bosque[cont]=arbolanarquico;
+            
+            cout<<"El dios "<<diosA->getName()<<" se ha vuelto anarquico y se ha llevado consigo "<<cant <<" dios(es)"<<endl;
+            
 
-            cout<<"El dios "<<diosA->getName()<<" se ha vuelto anarquico y se ha llevado consigo"<<cant <<" dios(es)"<<endl;
         }
 
 };
@@ -213,13 +215,21 @@ class CartaUnion : public Carta{
                 int cantnodos1 = arbol.cantNodos(arboldiosA); 
                 int cantnodos2 = arbol.cantNodos(arboldiosB);
 
+                arbol.postorder(arboldiosA);
+                cout<<"/////////////////"<<endl;
+                arbol.postorder(arboldiosB);
+                
+                cout<<endl;
+
                 if (cantnodos1>cantnodos2){ 
                     arbol.insertAVL(arboldiosA,arboldiosB);
                     bosque[posiDiosA] = arboldiosA;
+                    arbol.postorder(arboldiosA);
                 }
                 else{
                     arbol.insertAVL(arboldiosB,arboldiosA);
                     bosque[posiDiosB] = arboldiosB;
+                    arbol.postorder(arboldiosB);
                 }
 
                 cout<<"El arbol del dios "<<diosA->getName()<<" se ha unido al arbol del dios "<<diosB->getName()<<endl;

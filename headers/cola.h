@@ -7,9 +7,8 @@
 #include "dioses.h"
 #include "json.hpp"
 #include "fstream"
+#include "gfJSON.h"
 
-
-using json = nlohmann::json;
 using namespace std;
 
 
@@ -29,19 +28,13 @@ class Cola{
 
     Cola(){
 
-        fstream archivo("diosesJson.json");
+        vector<Dios> auxiliar = getFromJSON();
 
-        json infoDioses;
+         while(!auxiliar.empty()){
+             colaPrioridadDioses.push(auxiliar.back());
+             auxiliar.pop_back();
+         }
 
-        archivo>>infoDioses;
-
-        for (int i = 0; i < 20; i++)
-        {
-
-            colaPrioridadDioses.push(Dios(infoDioses["Dioses"][i],infoDioses["Fieles"][i]));
-            
-        }
-        archivo.close();
     }
 
 

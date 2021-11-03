@@ -31,7 +31,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,avl *bosque[]){ //priori
             Dios diosA = pColaDioses.getDios();
             Dios diosB = pColaDioses.getDios();
 
-            cout << "----------------------------" << endl;
+            cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << endl;
             cout << diosA.getFieles() << " / " << diosA.getName() << "---------" << diosB.getFieles() << " / " << diosB.getName() << endl;
 
             jugada.realizaraccion(&diosA,&diosB);
@@ -50,7 +50,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,avl *bosque[]){ //priori
             Dios diosA = pColaDioses.getDios();
             Dios diosB = pColaDioses.getDios();
 
-            cout << "----------------------------" << endl;
+            cout << "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB" << endl;
             cout << diosA.getFieles() << " / " << diosA.getName() << "---------" << diosB.getFieles() << " / " << diosB.getName() << endl;
             jugada.realizaraccion(&diosA,&diosB);
             cout << diosA.getFieles() << " / " << diosA.getName() << "---------" << diosB.getFieles() << " / " << diosB.getName() << endl;
@@ -66,7 +66,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,avl *bosque[]){ //priori
 
             Dios diosA = pColaDioses.getDios();
 
-            cout << "----------------------------" << endl;
+            cout << "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC" << endl;
 
             jugada.realizaraccion(&diosA,bosque);
             
@@ -83,7 +83,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,avl *bosque[]){ //priori
             Dios diosA = pColaDioses.getDios();
             Dios diosB = pColaDioses.getDios();
 
-            cout << "----------------------------" << endl;
+            cout << "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDd" << endl;
             
             jugada.realizaraccion(&diosA, &diosB, bosque);
 
@@ -101,7 +101,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,avl *bosque[]){ //priori
             Dios diosA = pColaDioses.getDios();
             Dios diosB = pColaDioses.getDios();
 
-            cout << "----------------------------" << endl;
+            cout << "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE" << endl;
             jugada.realizaraccion(&diosA,&diosB,&pColaDioses);
             cout << "----------------------------" << endl;
 
@@ -114,7 +114,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,avl *bosque[]){ //priori
 
             CartaRetorno jugada = CartaRetorno();
             
-            cout << "----------------------------" << endl;
+            cout << "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf" << endl;
             cout << "             RETORNO        " << endl;
             jugada.realizaraccion(&pMazoCartas);
             cout << "----------------------------" << endl;
@@ -127,7 +127,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,avl *bosque[]){ //priori
 
             Dios diosA = pColaDioses.getDios();
 
-            cout << "----------------------------" << endl;
+            cout << "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG" << endl;
             cout << diosA.getFieles() << " / " << diosA.getName() << endl;
             jugada.realizaraccion(&diosA);
             cout << diosA.getFieles() << " / " << diosA.getName() << endl;
