@@ -262,6 +262,24 @@ class avl_tree {
          }
          return pRoot;
       }
+
+      int buscarDios(avl* pRoot, Dios pDios){
+         if (pRoot==NULL){
+            return 0;
+         }
+         else{
+            if (pRoot->getValue().getFieles()>pDios.getFieles()){
+               return buscarDios(pRoot->getLS(),pDios);
+            }
+            else if (pRoot->getValue().getFieles()<pDios.getFieles()){
+               return buscarDios(pRoot->getRS(),pDios);
+            }
+            else if (pRoot->getValue().getName()==pDios.getName()){
+               return 1;
+            }
+            return buscarDios(pRoot->getLS(),pDios);
+         }
+      }
 };
 
 int main() {
@@ -300,15 +318,19 @@ int main() {
 
    hola = arbolAVL.balance(hola);
    arbolAVL.postorder(hola);
-   
-  cout<<arbolAVL.cantNodos(root)<<endl;
 
+  cout<<arbolAVL.cantNodos(root)<<endl;
    cout<<arbolAVL.cantNodos(hola)<<endl;
+
    arbolAVL.balance(root);
-   cout<<endl;
+   
+   cout<<arbolAVL.buscarDios(root,Thor)<<endl;
+   cout<<arbolAVL.buscarDios(hola,Thor)<<endl;
+
    arbolAVL.postorder(root);
    cout<<endl;
    arbolAVL.insertAVL(root,hola);
+   cout<<arbolAVL.buscarDios(root,Thor)<<endl;
 
    arbolAVL.postorder(root);
    return 0;
