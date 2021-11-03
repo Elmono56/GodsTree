@@ -6,6 +6,7 @@
 #include "dioses.h"
 #include "pila.h"
 #include "cola.h"
+#include "avl.h"
 
 #include <windows.h>
 #include <time.h>
@@ -16,7 +17,7 @@
 
 bool juego = true;
 
-void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses){ //priority_queue<Dios, vector<Dios>, CompareAge> *pMazoDioses){
+void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,avl *bosque[]){ //priority_queue<Dios, vector<Dios>, CompareAge> *pMazoDioses){ / vector<avl*> arboles
 
     
     while(juego & pColaDioses.getPQSize()!=0){
@@ -30,7 +31,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses){ //priority_queue<Dios,
             Dios diosA = pColaDioses.getDios();
             Dios diosB = pColaDioses.getDios();
 
-            cout << "----------------------------" << endl;
+            cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << endl;
             cout << diosA.getFieles() << " / " << diosA.getName() << "---------" << diosB.getFieles() << " / " << diosB.getName() << endl;
 
             jugada.realizaraccion(&diosA,&diosB);
@@ -49,7 +50,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses){ //priority_queue<Dios,
             Dios diosA = pColaDioses.getDios();
             Dios diosB = pColaDioses.getDios();
 
-            cout << "----------------------------" << endl;
+            cout << "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB" << endl;
             cout << diosA.getFieles() << " / " << diosA.getName() << "---------" << diosB.getFieles() << " / " << diosB.getName() << endl;
             jugada.realizaraccion(&diosA,&diosB);
             cout << diosA.getFieles() << " / " << diosA.getName() << "---------" << diosB.getFieles() << " / " << diosB.getName() << endl;
@@ -61,17 +62,35 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses){ //priority_queue<Dios,
 
         else if (pSiguiente.getTipo()=="Anarquia"){
 
+            CartaAnarquia jugada = CartaAnarquia();
+
+            Dios diosA = pColaDioses.getDios();
+
+            cout << "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC" << endl;
+
+            jugada.realizaraccion(&diosA,bosque);
+            
             cout << "----------------------------" << endl;
-            cout << "            ANARQUIA        " << endl;
-            cout << "----------------------------" << endl;
+
+            pColaDioses.pushDios(&diosA);
 
         }
 
         else if (pSiguiente.getTipo()=="Union"){
 
+            CartaUnion jugada = CartaUnion();
+
+            Dios diosA = pColaDioses.getDios();
+            Dios diosB = pColaDioses.getDios();
+
+            cout << "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDd" << endl;
+            
+            jugada.realizaraccion(&diosA, &diosB, bosque);
+
             cout << "----------------------------" << endl;
-            cout << "              UNION         " << endl;
-            cout << "----------------------------" << endl;
+
+            pColaDioses.pushDios(&diosA);
+            pColaDioses.pushDios(&diosB);
 
         }
 
@@ -82,7 +101,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses){ //priority_queue<Dios,
             Dios diosA = pColaDioses.getDios();
             Dios diosB = pColaDioses.getDios();
 
-            cout << "----------------------------" << endl;
+            cout << "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE" << endl;
             jugada.realizaraccion(&diosA,&diosB,&pColaDioses);
             cout << "----------------------------" << endl;
 
@@ -95,7 +114,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses){ //priority_queue<Dios,
 
             CartaRetorno jugada = CartaRetorno();
             
-            cout << "----------------------------" << endl;
+            cout << "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf" << endl;
             cout << "             RETORNO        " << endl;
             jugada.realizaraccion(&pMazoCartas);
             cout << "----------------------------" << endl;
@@ -108,7 +127,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses){ //priority_queue<Dios,
 
             Dios diosA = pColaDioses.getDios();
 
-            cout << "----------------------------" << endl;
+            cout << "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG" << endl;
             cout << diosA.getFieles() << " / " << diosA.getName() << endl;
             jugada.realizaraccion(&diosA);
             cout << diosA.getFieles() << " / " << diosA.getName() << endl;
