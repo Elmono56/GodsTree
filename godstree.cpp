@@ -36,18 +36,14 @@ int main(){
 //---------------------------------CREACION ARBOL INCIAL-------------------------------------------------
 
     avl *arbol = crearArbol();
-    //vector<avl*> arboles = vector<avl*>();
+    vector<avl*> bosque; // = vector<avl*>();
 
-    avl *bosque[100];
-
-    bosque[0]=arbol;
-
-    //arboles.insert(arbol);
+    bosque.push_back(arbol);
 
 //---------------------------------JUEGO--------------------------------------------------
     
     std::thread first(ejecutar,pilaCartas,colaDioses,bosque);
-    std::thread second(finalizar);
+    std::thread second(finalizar,bosque);
     first.join();                
     second.join();
 

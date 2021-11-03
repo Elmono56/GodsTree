@@ -11,15 +11,15 @@
 #include <windows.h>
 #include <time.h>
 #include <iostream>
-#include<conio.h>
+#include <conio.h>
+#include <iostream>
 
 #define KEY_X 120
 
 bool juego = true;
 
-void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,avl *bosque[]){ //priority_queue<Dios, vector<Dios>, CompareAge> *pMazoDioses){ / vector<avl*> arboles
+void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,vector<avl*> bosque){ //priority_queue<Dios, vector<Dios>, CompareAge> *pMazoDioses){ / vector<avl*> arboles
 
-    
     while(juego & pColaDioses.getPQSize()!=0){
 
         Carta pSiguiente = pMazoCartas.getCarta(); 
@@ -31,7 +31,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,avl *bosque[]){ //priori
             Dios diosA = pColaDioses.getDios();
             Dios diosB = pColaDioses.getDios();
 
-            cout << "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" << endl;
+            cout << "----------------------------" << endl;
             cout << diosA.getFieles() << " / " << diosA.getName() << "---------" << diosB.getFieles() << " / " << diosB.getName() << endl;
 
             jugada.realizaraccion(&diosA,&diosB);
@@ -50,7 +50,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,avl *bosque[]){ //priori
             Dios diosA = pColaDioses.getDios();
             Dios diosB = pColaDioses.getDios();
 
-            cout << "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB" << endl;
+            cout << "----------------------------" << endl;
             cout << diosA.getFieles() << " / " << diosA.getName() << "---------" << diosB.getFieles() << " / " << diosB.getName() << endl;
             jugada.realizaraccion(&diosA,&diosB);
             cout << diosA.getFieles() << " / " << diosA.getName() << "---------" << diosB.getFieles() << " / " << diosB.getName() << endl;
@@ -66,7 +66,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,avl *bosque[]){ //priori
 
             Dios diosA = pColaDioses.getDios();
 
-            cout << "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC" << endl;
+            cout << "----------------------------" << endl;
 
             jugada.realizaraccion(&diosA,bosque);
             
@@ -83,7 +83,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,avl *bosque[]){ //priori
             Dios diosA = pColaDioses.getDios();
             Dios diosB = pColaDioses.getDios();
 
-            cout << "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDd" << endl;
+            cout << "----------------------------" << endl;
             
             jugada.realizaraccion(&diosA, &diosB, bosque);
 
@@ -101,7 +101,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,avl *bosque[]){ //priori
             Dios diosA = pColaDioses.getDios();
             Dios diosB = pColaDioses.getDios();
 
-            cout << "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE" << endl;
+            cout << "----------------------------" << endl;
             jugada.realizaraccion(&diosA,&diosB,&pColaDioses);
             cout << "----------------------------" << endl;
 
@@ -114,7 +114,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,avl *bosque[]){ //priori
 
             CartaRetorno jugada = CartaRetorno();
             
-            cout << "FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFf" << endl;
+            cout << "----------------------------" << endl;
             cout << "             RETORNO        " << endl;
             jugada.realizaraccion(&pMazoCartas);
             cout << "----------------------------" << endl;
@@ -127,7 +127,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,avl *bosque[]){ //priori
 
             Dios diosA = pColaDioses.getDios();
 
-            cout << "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG" << endl;
+            cout << "----------------------------" << endl;
             cout << diosA.getFieles() << " / " << diosA.getName() << endl;
             jugada.realizaraccion(&diosA);
             cout << diosA.getFieles() << " / " << diosA.getName() << endl;
@@ -145,7 +145,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,avl *bosque[]){ //priori
     }
 }
 
-void finalizar(){
+void finalizar(vector<avl*> bosque){
     
     char key = getch();
     int value = key;
@@ -153,6 +153,16 @@ void finalizar(){
     if(value == KEY_X){
 
         juego = false;
+
+        avl_tree arbol;
+
+        int cont = 0;
+
+        for (vector<avl*>::iterator it = bosque.begin() ; cont<bosque.size();it++,cont++){// != bosque.end(); it++){
+            
+            arbol.postorder(*it);
+                
+        }
 
         cout << "Juego finalizado" << endl;
         
