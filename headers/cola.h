@@ -5,6 +5,7 @@
 #include <queue>
 #include <vector>
 #include "dioses.h"
+#include "gfJSON.h"
 
 struct CompareAge {
     bool operator()(Dios & p1, Dios & p2) {
@@ -20,53 +21,11 @@ class Cola{
     public:
 
     Cola(){
-        Dios Thor = Dios("Thor",100);
-        Dios Loki = Dios("Loki",500);
-        Dios Hela = Dios("Hela", 150);
-        Dios Zeus = Dios("Zeus",400);
-        Dios Jesus = Dios("Jesus",50);
+        vector<Dios> diosesJSON = getFromJSON();
 
-        Dios Ares = Dios("Ares",175);
-        Dios Apolo = Dios("Apolo",620);
-        Dios Asclepio = Dios("Asclepio", 120);
-        Dios Baco = Dios("Baco",420);
-        Dios Cupido = Dios("Cupido",510);
-
-        Dios Dionisio = Dios("Dionisio",160);
-        Dios Eros = Dios("Eros",340);
-        Dios Febo = Dios("Febo", 550);
-        Dios Forcis = Dios("Forcis",700);
-        Dios Hades = Dios("Hades",905);
-
-        Dios Hefesto = Dios("Hefesto",170);
-        Dios Hercules = Dios("Hercules",500);
-        Dios Hermes = Dios("Hermes", 130);
-        Dios Helios = Dios("Helios",565);
-        Dios Marte = Dios("Marte",50);
-
-        colaPrioridadDioses.push(Thor);
-        colaPrioridadDioses.push(Loki);
-        colaPrioridadDioses.push(Hela);
-        colaPrioridadDioses.push(Zeus);
-        colaPrioridadDioses.push(Jesus);
-
-        colaPrioridadDioses.push(Ares);
-        colaPrioridadDioses.push(Apolo);
-        colaPrioridadDioses.push(Asclepio);
-        colaPrioridadDioses.push(Baco);
-        colaPrioridadDioses.push(Cupido);
-
-        colaPrioridadDioses.push(Dionisio);
-        colaPrioridadDioses.push(Eros);
-        colaPrioridadDioses.push(Febo);
-        colaPrioridadDioses.push(Forcis);
-        colaPrioridadDioses.push(Hades);
-
-        colaPrioridadDioses.push(Hefesto);
-        colaPrioridadDioses.push(Hercules);
-        colaPrioridadDioses.push(Hermes);
-        colaPrioridadDioses.push(Helios);
-        colaPrioridadDioses.push(Marte);
+        while (!diosesJSON.empty()){
+            colaPrioridadDioses.push(diosesJSON.back());
+        }
     }
 
     priority_queue<Dios, vector<Dios>, CompareAge> getColaDioses(){
