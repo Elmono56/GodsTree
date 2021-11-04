@@ -102,7 +102,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,vector<avl*>* pBosque){
             Dios diosB = pColaDioses.getDios();
 
             cout << "----------------------------" << endl;
-            jugada.realizaraccion(&diosA,&diosB,&pColaDioses);
+            jugada.realizaraccion(&diosA,&diosB,&pColaDioses,pBosque);
             cout << "----------------------------" << endl;
 
             pColaDioses.pushDios(&diosA);
