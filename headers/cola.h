@@ -31,9 +31,9 @@ class Cola{
         vector<Dios> auxiliar = getFromJSON();
 
          while(!auxiliar.empty()){
-             colaPrioridadDioses.push(auxiliar.back());
-             auxiliar.pop_back();
-         }
+            colaPrioridadDioses.push(auxiliar.back());
+            auxiliar.pop_back();
+        }
 
     }
 

@@ -18,7 +18,7 @@
 
 bool juego = true;
 
-void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,vector<avl*> bosque){ //priority_queue<Dios, vector<Dios>, CompareAge> *pMazoDioses){ / vector<avl*> arboles
+void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,vector<avl*>* bosque){ //priority_queue<Dios, vector<Dios>, CompareAge> *pMazoDioses){ / vector<avl*> arboles
 
     while(juego & pColaDioses.getPQSize()!=0){
 
@@ -145,7 +145,7 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,vector<avl*> bosque){ //
     }
 }
 
-void finalizar(vector<avl*> bosque){
+void finalizar(vector<avl*>* bosque){
     
     char key = getch();
     int value = key;
@@ -158,11 +158,13 @@ void finalizar(vector<avl*> bosque){
 
         int cont = 0;
 
-        for (vector<avl*>::iterator it = bosque.begin() ; cont<bosque.size();it++,cont++){// != bosque.end(); it++){
+        for (vector<avl*>::iterator it = bosque->begin() ; cont<bosque->size();it++,cont++){// != bosque.end(); it++){
             
             arbol.postorder(*it);
                 
         }
+
+        cout<<endl;
 
         cout << "Juego finalizado" << endl;
         

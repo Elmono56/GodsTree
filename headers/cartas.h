@@ -114,7 +114,7 @@ class CartaAnarquia : public Carta{
 
         }
 
-        void realizaraccion(Dios* diosA, vector<avl*>bosque){
+        void realizaraccion(Dios* diosA, vector<avl*>* bosque){
             //El dios A se separa del árbol de dioses y crea su propio árbol con los dioses con menos fieles que él
 
             int posiDiosA=0;
@@ -122,7 +122,7 @@ class CartaAnarquia : public Carta{
 
             int cont = 0;
 
-            for (vector<avl*>::iterator it = bosque.begin() ; cont<bosque.size();it++,cont++){// != bosque.end(); it++){
+            for (vector<avl*>::iterator it = bosque->begin() ; cont<bosque->size();it++,cont++){// != bosque.end(); it++){
                 
                 if (arbol.buscarDios(*it,*diosA) == 1){ //encontrar el arbol en el que está diosA
                     posiDiosA = cont;
@@ -133,28 +133,39 @@ class CartaAnarquia : public Carta{
                 
             }
 
-            avl* arbolp = bosque.at(posiDiosA); //arbol en el que se encuentra el diosA
+            avl* arbolp = bosque->at(posiDiosA); //arbol en el que se encuentra el diosA
+            
+            cout<<bosque->size()<<endl;
 
-            if (arbolp->getValue().getName()==diosA->getName() & arbol.cantNodos(arbolp)==1){ //esta en un arbol el solo
-                cout<<"El dios"<<diosA->getName()<<" ya se encuentra aislado en un arbol solo"<<endl;
+            if (arbolp->getValue().getName()==diosA->getName() & arbolp->getRS()==nullptr){ //esta en un arbol el solo
+                cout<<"El dios"<<diosA->getName()<<" ya se encuentra aislado en un arbol"<<endl;
             }
 
             else{
+                bosque->erase(bosque->begin()+posiDiosA);
                 
                 cout<<"ANTES"<<endl;
+
                 avl* arbolanarquico = arbol.deleteNode(nullptr,arbolp,*diosA); //nuevo arbol
                 cout<<"DESPUES"<<endl;
+
                 arbolp = arbol.balance(arbolp); //balanceo
                 cout<<"BALANCEO1"<<endl;
+
                 int cant = arbol.cantNodos(arbolanarquico) - 1;
                 cout<<"CANT"<<endl;
+
                 //arbolanarquico = arbol.balance(arbolanarquico); //balanceo
-                cout<<"BALANCEO2"<<endl;
+                //cout<<"BALANCEO2"<<endl;
+
+                arbol.postorder(arbolp);
+                cout<<endl;
                 arbol.postorder(arbolanarquico);
+                
+                bosque->push_back(arbolp);
+                bosque->push_back(arbolanarquico);
 
-                //pArboles.insert(arbolanarquico); //insertar el nuevo arbol del dios A
-
-                bosque.push_back(arbolanarquico);
+                cout<<bosque->size()<<endl;
 
                 cout<<"El dios "<<diosA->getName()<<" se ha vuelto anarquico y se ha llevado consigo "<<cant <<" dios(es)"<<endl;
             }
@@ -174,7 +185,7 @@ class CartaUnion : public Carta{
 
         }
 
-        void realizaraccion(Dios* diosA, Dios* diosB,vector<avl*> bosque){
+        void realizaraccion(Dios* diosA, Dios* diosB,vector<avl*>* bosque){
             //Si el dios A y el dios B se encuentran en árboles diferentes se vuelven a unir en un solo árbol
             int posiDiosA=0;
             int posiDiosB=0;
@@ -182,7 +193,7 @@ class CartaUnion : public Carta{
 
             int cont = 0;
 
-            for (vector<avl*>::iterator it = bosque.begin() ; cont<bosque.size();it++,cont++){// != bosque.end(); it++){
+            for (vector<avl*>::iterator it = bosque->begin() ; cont<bosque->size();it++,cont++){// != bosque.end(); it++){
                 
                 if (arbol.buscarDios(*it,*diosA) == 1){ //encontrar el arbol en el que está diosA
                     posiDiosA = cont;
@@ -194,7 +205,7 @@ class CartaUnion : public Carta{
             }
 
             cont=0;
-            for (vector<avl*>::iterator it = bosque.begin() ; cont<bosque.size();it++,cont++){
+            for (vector<avl*>::iterator it = bosque->begin() ; cont<bosque->size();it++,cont++){
                 
                 if (arbol.buscarDios(*it,*diosB) == 1){//encontrar el arbol en el que está diosB
                     posiDiosB = cont;
@@ -212,11 +223,11 @@ class CartaUnion : public Carta{
             else{
 
                 
-                avl* arboldiosA = bosque.at(posiDiosA);
-                bosque.erase(bosque.begin()+posiDiosA);
+                avl* arboldiosA = bosque->at(posiDiosA);
+                bosque->erase(bosque->begin()+posiDiosA);
 
                 cont=0;
-                for (vector<avl*>::iterator it = bosque.begin() ; cont<bosque.size();it++,cont++){
+                for (vector<avl*>::iterator it = bosque->begin() ; cont<bosque->size();it++,cont++){
                     
                     if (arbol.buscarDios(*it,*diosB) == 1){//encontrar otra vez el arbol en el que está diosB
                         posiDiosB = cont;
@@ -227,8 +238,8 @@ class CartaUnion : public Carta{
                     
                 }
                 
-                avl* arboldiosB = bosque.at(posiDiosB);
-                bosque.erase(bosque.begin()+posiDiosB);
+                avl* arboldiosB = bosque->at(posiDiosB);
+                bosque->erase(bosque->begin()+posiDiosB);
 
                 int cantnodos1 = arbol.cantNodos(arboldiosA); 
                 int cantnodos2 = arbol.cantNodos(arboldiosB);
@@ -241,12 +252,12 @@ class CartaUnion : public Carta{
 
                 if (cantnodos1>cantnodos2){ 
                     arbol.insertAVL(arboldiosA,arboldiosB);
-                    bosque.push_back(arboldiosA);
+                    bosque->push_back(arboldiosA);
                     arbol.postorder(arboldiosA);
                 }
                 else{
                     arbol.insertAVL(arboldiosB,arboldiosA);
-                    bosque.push_back(arboldiosB);
+                    bosque->push_back(arboldiosB);
                     arbol.postorder(arboldiosB);
                 }
 
