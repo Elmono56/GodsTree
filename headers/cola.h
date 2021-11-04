@@ -14,8 +14,8 @@ using namespace std;
 
 
 struct CompareAge {
-    bool operator()(Dios & p1, Dios & p2) {
-        return p1.getFieles() < p2.getFieles();
+    bool operator()(Dios & pDios1, Dios & pDios2) {
+        return pDios1.getFieles() < pDios2.getFieles();
     }
 };
 
@@ -31,10 +31,9 @@ class Cola{
         vector<Dios> auxiliar = getFromJSON();
 
          while(!auxiliar.empty()){
-             colaPrioridadDioses.push(auxiliar.back());
-             auxiliar.pop_back();
-         }
-
+            colaPrioridadDioses.push(auxiliar.back());
+            auxiliar.pop_back();
+        }
     }
 
 
@@ -64,10 +63,7 @@ class Cola{
     void pushDios(Dios* pDiosA){
 
         colaPrioridadDioses.push(*pDiosA);
-
     }
-
 };
-
 
 #endif

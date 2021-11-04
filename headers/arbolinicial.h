@@ -13,22 +13,23 @@
 
 
 avl* crearArbol(){
+
     avl_tree arbolAVL;
-
-   Cola colaDioses;
-
-   priority_queue<Dios, vector<Dios>, CompareAge> colaPrioridad= colaDioses.getColaDioses();
-   priority_queue<Dios, vector<Dios>, CompareAge> *ptrCola;
-
-   ptrCola = &colaPrioridad;
-
-   avl* root = nullptr;
-
-   while(!ptrCola->empty()){
-      root = arbolAVL.insert(root, ptrCola->top());
-      ptrCola->pop();
-   }
-
+    
+    Cola colaDioses;
+    
+    priority_queue<Dios, vector<Dios>, CompareAge> colaPrioridad= colaDioses.getColaDioses();
+    
+    priority_queue<Dios, vector<Dios>, CompareAge> *ptrCola;
+    ptrCola = &colaPrioridad;
+    
+    avl* root = nullptr;
+    
+    while(!ptrCola->empty())
+    {
+       root = arbolAVL.insert(root, ptrCola->top());
+       ptrCola->pop();
+    }
    return root;
 }
 
