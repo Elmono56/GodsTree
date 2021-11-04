@@ -19,16 +19,15 @@ class Pila {
         stack<T> segundomazo;
 
     public:
-        Pila(vector<T> vectorM){
+        Pila(vector<T> pVectorM){
             //---------------------------------CREACION PILA MAZO-------------------------------------
             
-            random_shuffle(vectorM.begin(), vectorM.end()); //randomizar el mazo
+            random_shuffle(pVectorM.begin(), pVectorM.end()); //randomizar el mazo
 
             for (int cont = 0; cont<40;cont++){
-                T elemento = vectorM.at(cont);
+                T elemento = pVectorM.at(cont);
                 pilacartas.push(elemento);
-            }
-            
+            } 
         }
 
         int getSize(){
@@ -73,11 +72,7 @@ class Pila {
                 }
                 cout<<"El mazo principal se ha vaciado, se ha intercambiado por el segundo mazo"<<endl;
             }
-
-            //cout<<"PilaCartas: "<<pilacartas.size()<<"   MazoAuxiliar: "<<mazoauxiliar.size()<<"   SegundoMazo: "<<segundomazo.size()<<endl;
-
-            return siguienteC;
-            
+            return siguienteC;   
         }
 
         void accionRetornar(){
@@ -101,9 +96,7 @@ class Pila {
                 }
             }
             cout<<"Se han retornado "<<cont<< " cartas al mazo"<<endl;
-            //cout<<"PilaCartas: "<<pilacartas.size()<<"   MazoAuxiliar: "<<mazoauxiliar.size()<<"   SegundoMazo: "<<segundomazo.size()<<endl;
         }
-
 };
 
 #endif

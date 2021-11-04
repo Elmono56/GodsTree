@@ -35,7 +35,7 @@ int main(){
 //---------------------------------CREACION ARBOL INCIAL-------------------------------------------------
 
     avl *arbol = crearArbol();
-    vector<avl*> bosque; // = vector<avl*>();
+    vector<avl*> bosque;
 
     bosque.push_back(arbol);
 

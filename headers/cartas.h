@@ -33,7 +33,6 @@ class Carta{
         }
 
         void realizaraccion();
-
 };
 
 
@@ -47,28 +46,26 @@ class CartaMilagro : public Carta{
 
         }
         
-        void realizaraccion(Dios *diosA, Dios *diosB){
+        void realizaraccion(Dios *pDiosA, Dios *pDiosB){
             //El dios A le gana el 20% de los fieles al dios B
             
-            int fielesA = diosA->getFieles();
-            int fielesB = diosB->getFieles();
+            int fielesA = pDiosA->getFieles();
+            int fielesB = pDiosB->getFieles();
 
             int robo =int (fielesB*0.2);
             
             fielesA = fielesA + robo;
             fielesB = fielesB - robo;
 
-            diosA->setFieles(fielesA);
-            diosB->setFieles(fielesB);
+            pDiosA->setFieles(fielesA);
+            pDiosB->setFieles(fielesB);
 
-            cout<<diosA->getName()<< " le ha robado "<<robo <<" seguidores a "<<diosB->getName()<<endl;
+            cout<<pDiosA->getName()<< " le ha robado "<<robo <<" seguidores a "<<pDiosB->getName()<<endl;
 
             if (fielesB <= 0){
-                cout<<diosB->getName()<< " ha perdido todos sus seguidores"<<endl;
+                cout<<pDiosB->getName()<< " ha perdido todos sus seguidores"<<endl;
             }
-
         }
-
 };
 
 //-----------------------------------------------------------------------------------------------------------------------------------
@@ -81,27 +78,26 @@ class CartaTraicion : public Carta{
 
         }
 
-        void realizaraccion(Dios *diosA, Dios *diosB){
+        void realizaraccion(Dios *pDiosA, Dios *pDiosB){
             //El dios A pierde el 30% de sus fieles y se los da a B 
             
-            int fielesA = diosA->getFieles();
-            int fielesB = diosB->getFieles();
+            int fielesA = pDiosA->getFieles();
+            int fielesB = pDiosB->getFieles();
 
             int traidores =int (fielesA*0.3);
             
             fielesA = fielesA - traidores;
             fielesB = fielesB + traidores;
 
-            diosA->setFieles(fielesA);
-            diosB->setFieles(fielesB);
+            pDiosA->setFieles(fielesA);
+            pDiosB->setFieles(fielesB);
 
-            cout<<diosA->getName()<< " ha sido traicionado por  "<<traidores <<" seguidores, los cuales han preferido a "<<diosB->getName()<<endl;
+            cout<<pDiosA->getName()<< " ha sido traicionado por  "<<traidores <<" seguidores, los cuales han preferido a "<<pDiosB->getName()<<endl;
 
             if (fielesA <= 0){
-                cout<<diosA->getName()<< " ha perdido todos sus seguidores"<<endl;
+                cout<<pDiosA->getName()<< " ha perdido todos sus seguidores"<<endl;
             }
         }
-
 };
 
 //-----------------------------------------------------------------------------------------------------------------------------------
@@ -114,65 +110,46 @@ class CartaAnarquia : public Carta{
 
         }
 
-        void realizaraccion(Dios* diosA, vector<avl*>* bosque){
-            //El dios A se separa del árbol de dioses y crea su propio árbol con los dioses con menos fieles que él
+        void realizaraccion(Dios* pDiosA, vector<avl*>* pBosque){
+            /*
+            ///El dios A se separa del árbol de dioses y crea su propio árbol con los dioses con menos fieles que él
 
-            int posiDiosA=0;
+            int posipDiosA=0;
             avl_tree arbol = avl_tree();
 
             int cont = 0;
 
-            for (vector<avl*>::iterator it = bosque->begin() ; cont<bosque->size();it++,cont++){// != bosque.end(); it++){
+            for (vector<avl*>::iterator it = pBosque->begin() ; cont<pBosque->size();it++,cont++){
                 
-                if (arbol.buscarDios(*it,*diosA) == 1){ //encontrar el arbol en el que está diosA
-                    posiDiosA = cont;
+                if (arbol.buscarDios(*it,*pDiosA) == 1){ //encontrar el arbol en el que está pDiosA
+                    posipDiosA = cont;
                     break;
                 }
                 else{
                 }
-                
             }
 
-            avl* arbolp = bosque->at(posiDiosA); //arbol en el que se encuentra el diosA
-            
-            cout<<bosque->size()<<endl;
+            avl* arbolp = pBosque->at(posipDiosA); //arbol en el que se encuentra el pDiosA
 
-            if (arbolp->getValue().getName()==diosA->getName() & arbolp->getRS()==nullptr){ //esta en un arbol el solo
-                cout<<"El dios"<<diosA->getName()<<" ya se encuentra aislado en un arbol"<<endl;
+            if (arbolp->getValue().getName()==pDiosA->getName() & arbolp->getRS()==nullptr){ //esta en un arbol el solo
+                cout<<"El dios"<<pDiosA->getName()<<" ya se encuentra aislado en un arbol"<<endl;
             }
 
             else{
-                bosque->erase(bosque->begin()+posiDiosA);
+                pBosque->erase(pBosque->begin()+posipDiosA);
                 
-                cout<<"ANTES"<<endl;
-
-                avl* arbolanarquico = arbol.deleteNode(nullptr,arbolp,*diosA); //nuevo arbol
-                cout<<"DESPUES"<<endl;
-
-                arbolp = arbol.balance(arbolp); //balanceo
-                cout<<"BALANCEO1"<<endl;
+                avl* arbolanarquico = arbol.deleteNode(nullptr,arbolp,*pDiosA); //nuevo arbol
 
                 int cant = arbol.cantNodos(arbolanarquico) - 1;
-                cout<<"CANT"<<endl;
-
-                //arbolanarquico = arbol.balance(arbolanarquico); //balanceo
-                //cout<<"BALANCEO2"<<endl;
-
-                arbol.postorder(arbolp);
-                cout<<endl;
-                arbol.postorder(arbolanarquico);
                 
-                bosque->push_back(arbolp);
-                bosque->push_back(arbolanarquico);
+                pBosque->push_back(arbolp);
+                pBosque->push_back(arbolanarquico);
 
-                cout<<bosque->size()<<endl;
 
-                cout<<"El dios "<<diosA->getName()<<" se ha vuelto anarquico y se ha llevado consigo "<<cant <<" dios(es)"<<endl;
+                cout<<"El dios "<<pDiosA->getName()<<" se ha vuelto anarquico y se ha llevado consigo "<<cant <<" dios(es)"<<endl;
             }
-                        
-
+            */
         }
-
 };
 
 //-----------------------------------------------------------------------------------------------------------------------------------
@@ -185,52 +162,50 @@ class CartaUnion : public Carta{
 
         }
 
-        void realizaraccion(Dios* diosA, Dios* diosB,vector<avl*>* bosque){
+        void realizaraccion(Dios* pDiosA, Dios* pDiosB,vector<avl*>* pBosque){
             //Si el dios A y el dios B se encuentran en árboles diferentes se vuelven a unir en un solo árbol
-            int posiDiosA=0;
-            int posiDiosB=0;
+            int posipDiosA=0;
+            int posipDiosB=0;
             avl_tree arbol = avl_tree();
 
             int cont = 0;
 
-            for (vector<avl*>::iterator it = bosque->begin() ; cont<bosque->size();it++,cont++){// != bosque.end(); it++){
+            for (vector<avl*>::iterator it = pBosque->begin() ; cont<pBosque->size();it++,cont++){
                 
-                if (arbol.buscarDios(*it,*diosA) == 1){ //encontrar el arbol en el que está diosA
-                    posiDiosA = cont;
+                if (arbol.buscarDios(*it,*pDiosA) == 1){ //encontrar el arbol en el que está pDiosA
+                    posipDiosA = cont;
                     break;
                 }
                 else{
                 }
-                
             }
 
             cont=0;
-            for (vector<avl*>::iterator it = bosque->begin() ; cont<bosque->size();it++,cont++){
+            for (vector<avl*>::iterator it = pBosque->begin() ; cont<pBosque->size();it++,cont++){
                 
-                if (arbol.buscarDios(*it,*diosB) == 1){//encontrar el arbol en el que está diosB
-                    posiDiosB = cont;
+                if (arbol.buscarDios(*it,*pDiosB) == 1){//encontrar el arbol en el que está pDiosB
+                    posipDiosB = cont;
                     break;
                 }
                 else{
                 }
-                
             }
 
-            if (posiDiosA == posiDiosB){
-                cout<<diosA->getName()<<" y "<<diosB->getName()<<" se encuentran en el mismo arbol"<<endl; //arboles son iguales
+            if (posipDiosA == posipDiosB){
+                cout<<pDiosA->getName()<<" y "<<pDiosB->getName()<<" se encuentran en el mismo arbol"<<endl; //arboles son iguales
             }
 
             else{
 
                 
-                avl* arboldiosA = bosque->at(posiDiosA);
-                bosque->erase(bosque->begin()+posiDiosA);
+                avl* arbolpDiosA = pBosque->at(posipDiosA);
+                pBosque->erase(pBosque->begin()+posipDiosA);
 
                 cont=0;
-                for (vector<avl*>::iterator it = bosque->begin() ; cont<bosque->size();it++,cont++){
+                for (vector<avl*>::iterator it = pBosque->begin() ; cont<pBosque->size();it++,cont++){
                     
-                    if (arbol.buscarDios(*it,*diosB) == 1){//encontrar otra vez el arbol en el que está diosB
-                        posiDiosB = cont;
+                    if (arbol.buscarDios(*it,*pDiosB) == 1){//encontrar otra vez el arbol en el que está pDiosB
+                        posipDiosB = cont;
                         break;
                     }
                     else{
@@ -238,34 +213,25 @@ class CartaUnion : public Carta{
                     
                 }
                 
-                avl* arboldiosB = bosque->at(posiDiosB);
-                bosque->erase(bosque->begin()+posiDiosB);
+                avl* arbolpDiosB = pBosque->at(posipDiosB);
+                pBosque->erase(pBosque->begin()+posipDiosB);
 
-                int cantnodos1 = arbol.cantNodos(arboldiosA); 
-                int cantnodos2 = arbol.cantNodos(arboldiosB);
-
-                arbol.postorder(arboldiosA);
-                cout<<"/////////////////"<<endl;
-                arbol.postorder(arboldiosB);
-                
-                cout<<endl;
+                int cantnodos1 = arbol.cantNodos(arbolpDiosA); 
+                int cantnodos2 = arbol.cantNodos(arbolpDiosB);
 
                 if (cantnodos1>cantnodos2){ 
-                    arbol.insertAVL(arboldiosA,arboldiosB);
-                    bosque->push_back(arboldiosA);
-                    arbol.postorder(arboldiosA);
+                    arbol.insertAVL(arbolpDiosA,arbolpDiosB);
+                    pBosque->push_back(arbolpDiosA);
                 }
                 else{
-                    arbol.insertAVL(arboldiosB,arboldiosA);
-                    bosque->push_back(arboldiosB);
-                    arbol.postorder(arboldiosB);
+                    arbol.insertAVL(arbolpDiosB,arbolpDiosA);
+                    pBosque->push_back(arbolpDiosB);
                 }
 
-                cout<<"El arbol del dios "<<diosA->getName()<<" se ha unido al arbol del dios "<<diosB->getName()<<endl;
+                cout<<"El arbol del dios "<<pDiosA->getName()<<" se ha unido al arbol del dios "<<pDiosB->getName()<<endl;
                 
             }
         }
-
 };
 
 //-----------------------------------------------------------------------------------------------------------------------------------
@@ -278,18 +244,17 @@ class CartaNuevoDios : public Carta{
 
         }
 
-        void realizaraccion(Dios* diosA, Dios* diosB, Cola* pColaDioses){
+        void realizaraccion(Dios* pDiosA, Dios* pDiosB, Cola* pColaDioses){
             //Los dioses A y B tienen un hijo dios que inicia con cantidad de fieles igual a la suma de ambos dioses
             
-            int fielesN = diosA->getFieles() + diosB->getFieles();
+            int fielesN = pDiosA->getFieles() + pDiosB->getFieles();
 
             Dios DiosG = Dios("Generico",fielesN);
 
-            cout<<DiosG.getName()<< " ha nacido de "<<diosA->getName() << " y de "<<diosB->getName()<<endl;
+            cout<<DiosG.getName()<< " ha nacido de "<<pDiosA->getName() << " y de "<<pDiosB->getName()<<endl;
 
             pColaDioses->pushDios(&DiosG);
         }
-
 };
 
 //-----------------------------------------------------------------------------------------------------------------------------------
@@ -306,7 +271,6 @@ class CartaRetorno : public Carta{
             //El mazo del destino recupera las últimas 3 cartas de las que ya fueron sacadas, pero en orden inverso
             pMazoCartas->accionRetornar();
         }
-
 };
 
 //-----------------------------------------------------------------------------------------------------------------------------------
@@ -319,24 +283,23 @@ class CartaMuerte : public Carta{
 
         }
 
-        void realizaraccion(Dios *diosA){
+        void realizaraccion(Dios *pDiosA){
             //El dios A pierde el 10% de sus fieles
 
-            int fielesA = diosA->getFieles();
+            int fielesA = pDiosA->getFieles();
 
             int muertos = int (fielesA*0.1);
 
             fielesA = fielesA - muertos;
 
-            diosA->setFieles(fielesA);
+            pDiosA->setFieles(fielesA);
 
-            cout<<"Han muerto "<<muertos<<" seguidores de "<<diosA->getName()<<endl;
+            cout<<"Han muerto "<<muertos<<" seguidores de "<<pDiosA->getName()<<endl;
 
             if (fielesA<=0){
-                cout<<diosA->getName()<< " ha perdido todos sus seguidores"<<endl;
+                cout<<pDiosA->getName()<< " ha perdido todos sus seguidores"<<endl;
             }
         }
-
 };
 
 #endif

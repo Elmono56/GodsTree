@@ -18,7 +18,7 @@
 
 bool juego = true;
 
-void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,vector<avl*>* bosque){ //priority_queue<Dios, vector<Dios>, CompareAge> *pMazoDioses){ / vector<avl*> arboles
+void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,vector<avl*>* pBosque){ 
 
     while(juego & pColaDioses.getPQSize()!=0){
 
@@ -68,12 +68,13 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,vector<avl*>* bosque){ /
 
             cout << "----------------------------" << endl;
 
-            jugada.realizaraccion(&diosA,bosque);
+            cout << " ANARQUIA" << endl;
+
+            jugada.realizaraccion(&diosA,pBosque);
             
             cout << "----------------------------" << endl;
 
             pColaDioses.pushDios(&diosA);
-
         }
 
         else if (pSiguiente.getTipo()=="Union"){
@@ -85,13 +86,12 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,vector<avl*>* bosque){ /
 
             cout << "----------------------------" << endl;
             
-            jugada.realizaraccion(&diosA, &diosB, bosque);
+            jugada.realizaraccion(&diosA, &diosB, pBosque);
 
             cout << "----------------------------" << endl;
 
             pColaDioses.pushDios(&diosA);
             pColaDioses.pushDios(&diosB);
-
         }
 
         else if (pSiguiente.getTipo()=="NuevoDios"){
@@ -107,7 +107,6 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,vector<avl*>* bosque){ /
 
             pColaDioses.pushDios(&diosA);
             pColaDioses.pushDios(&diosB);
-
         }
 
         else if (pSiguiente.getTipo()=="Retorno"){
@@ -118,7 +117,6 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,vector<avl*>* bosque){ /
             cout << "             RETORNO        " << endl;
             jugada.realizaraccion(&pMazoCartas);
             cout << "----------------------------" << endl;
-
         }
 
         else if (pSiguiente.getTipo()=="Muerte"){
@@ -134,18 +132,14 @@ void ejecutar(Pila<Carta> pMazoCartas, Cola pColaDioses,vector<avl*>* bosque){ /
             cout << "----------------------------" << endl;
 
             pColaDioses.pushDios(&diosA);
-
         }
         else{
-
         }
-        //cout<<"SIZE COLA DIOSES"<<pColaDioses.getPQSize()<<endl;
         Sleep(3000);
-        
     }
 }
 
-void finalizar(vector<avl*>* bosque){
+void finalizar(vector<avl*>* pBosque){
     
     char key = getch();
     int value = key;
@@ -158,16 +152,14 @@ void finalizar(vector<avl*>* bosque){
 
         int cont = 0;
 
-        for (vector<avl*>::iterator it = bosque->begin() ; cont<bosque->size();it++,cont++){// != bosque.end(); it++){
+        for (vector<avl*>::iterator it = pBosque->begin() ; cont<pBosque->size();it++,cont++){
             
-            arbol.postorder(*it);
-                
+            cout << "Postorden arbol de dioses: " << endl;
+            
+            arbol.postorder(*it);   
         }
-
         cout<<endl;
-
         cout << "Juego finalizado" << endl;
-        
     }
 };
 

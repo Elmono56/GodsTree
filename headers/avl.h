@@ -46,15 +46,6 @@ class avl{
          return rightSon;
       }
 };
-/*
-struct avl {
-
-   Dios value;
-   struct avl *leftSon = nullptr;
-   struct avl *rightSon = nullptr;
-
-}*root;
-*/
 
 class avl_tree {
 
@@ -168,28 +159,22 @@ class avl_tree {
          int fieles = pDeus.getFieles();
 
          if (fieles < pRoot->getValue().getFieles()){ //fieles menor al busacado (va hacia la derecha)
-            //cout<<"RIGTH SON"<<endl;
-            //cout<<fieles<<" "<<pRoot->value.getFieles()<<endl;
             return deleteNode(pRoot, pRoot->getLS(), pDeus);
 
 
          }
 
          else if (fieles > pRoot->getValue().getFieles()){//fieles menor al busacado (va hacia la izquierda)
-            //cout<<"LEFT SON"<<endl;
-            //cout<<fieles<<" "<<pRoot->value.getFieles()<<endl;
             return deleteNode(pRoot, pRoot->getRS(), pDeus);
             
          }
 
          else{ //fieles igual a la cantidad buscada
-         //cout<<"IGUALES"<<endl;
-         //cout<<fieles<<" "<<pRoot->value.getFieles()<<endl;
             if (pDeus.getName()!=pRoot->getValue().getName()){
                return deleteNode(pRoot, pRoot->getLS(), pDeus); //validacion del nombre (pueden tener mismos fieles pero diferente nombre)
             }
             else if (pRoot->getRS()==nullptr){ //no hay nada al lado derecho
-               //cout<<"NADA DERECHO"<<endl;
+
 
                pFather->setLS(nullptr);
 
@@ -197,7 +182,6 @@ class avl_tree {
 
             }
             else{ //hay algo mayor que este
-               //cout<<"HAY ALGO AL LADO DERECHO"<<endl;
 
                pFather->setLS(pRoot->getRS());
 
@@ -206,7 +190,6 @@ class avl_tree {
             }
             
             return pRoot;
-
          }
 
       }
