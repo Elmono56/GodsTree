@@ -244,16 +244,40 @@ class CartaNuevoDios : public Carta{
 
         }
 
-        void realizaraccion(Dios* pDiosA, Dios* pDiosB, Cola* pColaDioses){
+        void realizaraccion(Dios* pDiosA, Dios* pDiosB, Cola* pColaDioses, vector<avl*>* pBosque){
             //Los dioses A y B tienen un hijo dios que inicia con cantidad de fieles igual a la suma de ambos dioses
             
             int fielesN = pDiosA->getFieles() + pDiosB->getFieles();
 
             Dios DiosG = Dios("Generico",fielesN);
 
-            cout<<DiosG.getName()<< " ha nacido de "<<pDiosA->getName() << " y de "<<pDiosB->getName()<<endl;
+            cout<<DiosG.getName()<< " ha nacido de "<<pDiosA->getName() << " y de "<<pDiosB->getName()<<" con "<<DiosG.getFieles()<<" fieles"<<endl;
 
             pColaDioses->pushDios(&DiosG);
+
+            int posipDiosA = 0;
+
+            int cont = 0;
+
+            avl_tree arbolPadre;
+
+            for (vector<avl*>::iterator it = pBosque->begin() ; cont<pBosque->size();it++,cont++){
+                
+                if (arbolPadre.buscarDios(*it,*pDiosA) == 1){ //encontrar el arbol en el que está pDiosA (padre)
+                    posipDiosA = cont;
+                    break;
+                }
+                else{
+                }
+            }
+
+            avl* arbolpDiosA = pBosque->at(posipDiosA);
+            pBosque->erase(pBosque->begin()+posipDiosA);
+
+            arbolpDiosA= arbolPadre.insert(arbolpDiosA,DiosG);
+
+            pBosque->push_back(arbolpDiosA);
+
         }
 };
 
